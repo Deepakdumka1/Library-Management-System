@@ -242,6 +242,8 @@ def display_issued_count():
 
 
 # function for returning the books
+import os
+
 def return_book():
     book_id = int(input("Enter the Book ID to return: "))
     found = False
@@ -254,7 +256,7 @@ def return_book():
     # Temporary file for updated records
     temp_file = "temp_librecord.txt"
 
-    with open("librecord.txt", "r") as librecord, open(temp_file, "w") as temp_file:
+    with open("librecord.txt", "r") as librecord, open(temp_file, "w") as temp_file_obj:
         lines = librecord.readlines()
         
         for line in lines:
@@ -273,7 +275,7 @@ def return_book():
                         print(f"Book ID {book_id} is already in stock.")
                 
                 # Write the updated record to the temporary file
-                temp_file.write("\t".join([str(current_book_id)] + parts[1:4] + [str(status)] + parts[5:]) + "\n")
+                temp_file_obj.write("\t".join([str(current_book_id)] + parts[1:4] + [str(status)] + parts[5:]) + "\n")
     
     # Replace the original file with the updated one
     os.remove("librecord.txt")
@@ -308,7 +310,7 @@ def return_book():
                         member_record.write(line)
     else:
         print(f"Book ID {book_id} not found.")
-# function for taking user input
+
 def take_input(prompt):
     """Take user input and strip newline characters."""
     return input(prompt).strip()
